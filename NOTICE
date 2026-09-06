@@ -1,0 +1,28 @@
+EFIRNET UNIWARE — мультизагрузчик: три меш-сети на одной плате.
+
+Copyright 2026 Апостол А.В.
+
+Исходный код этого репозитория распространяется на условиях
+Apache License 2.0. Полный текст — в файле LICENSE.
+
+---
+
+ВАЖНО: готовые образы, которые публикуются в разделе Releases, содержат
+не только наш код. Внутри комплекта лежат четыре независимых образа, и
+лицензия у каждого своя:
+
+  EFIRNET UNIWARE (меню загрузки)  — Apache 2.0, этот репозиторий
+  ЭФИРНЕТ                          — Apache 2.0, github.com/ignisdomini/Efirnet
+  Meshtastic                       — GPL-3.0, github.com/meshtastic/firmware
+  MeshCore                         — MIT,      github.com/meshcore-dev/MeshCore
+
+Meshtastic и MeshCore в комплекте ИЗМЕНЁННЫЕ. Что именно изменено, как это
+воспроизвести и где взять соответствующий исходный код — в THIRD-PARTY.md.
+Для Meshtastic это не формальность, а требование GPL-3.0.
+
+---
+
+Сторонние библиотеки, используемые менеджером загрузки:
+
+  U8g2                    — BSD 2-Clause и BSD 3-Clause (по файлам)
+  Arduino core for ESP32  — LGPL 2.1 и Apache 2.0 (по компонентам)

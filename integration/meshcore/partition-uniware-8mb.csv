@@ -1,0 +1,39 @@
+# EFIRNET TRI-BOOT partition table - ESP32-S3FN8, 8 MB flash (0x800000)
+#
+# Three independent firmwares selectable from the OLED boot menu:
+#   factory = boot manager, ota_0 = EFIRNET, ota_1 = Meshtastic, ota_2 = MeshCore
+#
+# Measured image sizes (2026-09):
+#   EFIRNET  heltec_v3          677 552 B  ->  slot 917 504 B   (+35%)
+#   Meshtastic 2.7.26 heltec-v3 2 109 248 B -> slot 2 752 512 B (+30%)
+#   MeshCore 1.17 companion_ble 1 271 776 B -> slot 1 703 936 B (+34%)
+#
+# Layout notes (inline comments are NOT allowed by gen_esp32part.py):
+#   nvs      0x009000  20K   shared: RF calibration + boot manager + Meshtastic
+#   otadata  0x00e000   8K   MUST stay at 0xe000 - that is where PlatformIO
+#                            writes boot_app0.bin
+#   factory  0x010000 448K   boot manager
+#   app_efr  0x080000 896K   EFIRNET
+#   app_mt   0x160000 2688K  Meshtastic
+#   app_mc   0x400000 1664K  MeshCore
+#   nvs_efr  0x5a0000  20K   EFIRNET settings, isolated
+#   nvs_mc   0x5a5000  20K   MeshCore settings, isolated
+#   lfs_efr  0x5aa000 280K   EFIRNET filesystem, reserved
+#   mc_fs    0x5f0000 576K   MeshCore filesystem
+#   spiffs   0x680000 1536K  Meshtastic filesystem - canonical name AND the
+#                            exact size of the stock littlefs-heltec-v3 image
+#
+# ASCII ONLY - PlatformIO reads this file with the system locale codec.
+#
+# Name,   Type, SubType,  Offset,    Size
+nvs,      data, nvs,      0x9000,    0x5000
+otadata,  data, ota,      0xe000,    0x2000
+factory,  app,  factory,  0x10000,   0x70000
+app_efr,  app,  ota_0,    0x80000,   0xE0000
+app_mt,   app,  ota_1,    0x160000,  0x2A0000
+app_mc,   app,  ota_2,    0x400000,  0x1A0000
+nvs_efr,  data, nvs,      0x5A0000,  0x5000
+nvs_mc,   data, nvs,      0x5A5000,  0x5000
+lfs_efr,  data, spiffs,   0x5AA000,  0x46000
+mc_fs,    data, spiffs,   0x5F0000,  0x90000
+spiffs,   data, spiffs,   0x680000,  0x180000

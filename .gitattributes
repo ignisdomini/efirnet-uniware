@@ -1,0 +1,15 @@
+# Скрипты для оболочки обязаны уезжать с переводом строки LF. С CRLF bash на
+# Linux падает на первой же строке с невнятным «\r: command not found», и
+# причина совершенно неочевидна.
+*.sh    text eol=lf
+*.py    text eol=lf
+*.csv   text eol=lf
+*.md    text eol=lf
+*.ini   text eol=lf
+*.h     text eol=lf
+*.cpp   text eol=lf
+
+# Двоичные образы не диффать и не трогать переводами строк.
+*.bin   binary
+*.jpg   binary
+*.png   binary

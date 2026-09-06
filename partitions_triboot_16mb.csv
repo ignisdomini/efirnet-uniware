@@ -1,0 +1,31 @@
+# EFIRNET UNIWARE TRI-BOOT partition table - 16 MB flash (0x1000000)
+#
+# Boards: heltec_v4, heltec_v4_r8
+#
+# Same label scheme as the 8 MB table, only roomier:
+#   nvs      0x009000   20K  shared RF calibration + boot manager + Meshtastic
+#   otadata  0x00e000    8K  MUST stay at 0xe000
+#   factory  0x010000  448K  boot manager
+#   app_efr  0x080000 1536K  EFIRNET
+#   app_mt   0x200000 4096K  Meshtastic
+#   app_mc   0x600000 3072K  MeshCore
+#   nvs_efr  0x900000   20K  EFIRNET settings
+#   nvs_mc   0x905000   20K  MeshCore settings
+#   lfs_efr  0x90a000  984K  EFIRNET filesystem, reserved
+#   mc_fs    0xa00000 2048K  MeshCore filesystem
+#   spiffs   0xc00000 4096K  Meshtastic filesystem
+#
+# ASCII ONLY - PlatformIO reads this file with the system locale codec.
+#
+# Name,   Type, SubType,  Offset,     Size
+nvs,      data, nvs,      0x9000,     0x5000
+otadata,  data, ota,      0xe000,     0x2000
+factory,  app,  factory,  0x10000,    0x70000
+app_efr,  app,  ota_0,    0x80000,    0x180000
+app_mt,   app,  ota_1,    0x200000,   0x400000
+app_mc,   app,  ota_2,    0x600000,   0x300000
+nvs_efr,  data, nvs,      0x900000,   0x5000
+nvs_mc,   data, nvs,      0x905000,   0x5000
+lfs_efr,  data, spiffs,   0x90A000,   0xF6000
+mc_fs,    data, spiffs,   0xA00000,   0x200000
+spiffs,   data, spiffs,   0xC00000,   0x400000

@@ -1,0 +1,27 @@
+# EFIRNET DUAL-BOOT partition table - ESP32-S3FN8, 8 MB flash (0x800000)
+#
+# factory = boot manager, ota_0 = EFIRNET, ota_1 = Meshtastic OR MeshCore
+#
+# Layout notes (inline comments are NOT allowed by gen_esp32part.py):
+#   nvs      0x009000   20K  shared: RF calibration + boot manager + slot B
+#   otadata  0x00e000    8K  MUST stay at 0xe000 - that is where PlatformIO
+#                            writes boot_app0.bin
+#   factory  0x010000  960K  boot manager
+#   app_efr  0x100000 2560K  EFIRNET
+#   app_b    0x380000 2560K  Meshtastic or MeshCore
+#   nvs_efr  0x600000   20K  EFIRNET settings, isolated
+#   lfs_efr  0x605000  492K  EFIRNET filesystem, reserved
+#   spiffs   0x680000 1536K  slot B filesystem - canonical name AND the exact
+#                            size of the stock littlefs-heltec-v3 image
+#
+# ASCII ONLY - PlatformIO reads this file with the system locale codec.
+#
+# Name,   Type, SubType,  Offset,    Size
+nvs,      data, nvs,      0x9000,    0x5000
+otadata,  data, ota,      0xe000,    0x2000
+factory,  app,  factory,  0x10000,   0xF0000
+app_efr,  app,  ota_0,    0x100000,  0x280000
+app_b,    app,  ota_1,    0x380000,  0x280000
+nvs_efr,  data, nvs,      0x600000,  0x5000
+lfs_efr,  data, spiffs,   0x605000,  0x7B000
+spiffs,   data, spiffs,   0x680000,  0x180000
